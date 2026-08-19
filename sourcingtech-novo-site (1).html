@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SourcingTech — Sourcing de Tecnologia para Empresas</title>
+<meta name="description" content="A SourcingTech conecta sua empresa aos principais fabricantes de TI do mercado — hardware, software, automação, infraestrutura, colaboração e segurança — com uma relação consultiva e humana.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A1220;
+    --bg-panel:#101B2C;
+    --bg-panel-2:#16233A;
+    --paper:#DCE3EA;
+    --paper-ink:#101A2A;
+    --text:#EEF2F7;
+    --text-muted:#8DA0B8;
+    --line:#22314A;
+    --line-soft:#1A2740;
+    --accent:#5B6EF5;
+    --accent-ink:#EEF0FF;
+    --accent-2:#F2A93B;
+    --accent-2-ink:#2A1B03;
+    --radius:10px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk',sans-serif;
+    line-height:1.08;
+    margin:0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  p{color:var(--text-muted);margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  section{padding:96px 0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--accent);display:inline-block;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;border-radius:4px;}
+
+  /* ===== topbar ===== */
+  .topbar{
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--line-soft);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--text-muted);
+  }
+  .topbar .wrap{display:flex;justify-content:flex-end;gap:26px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap;}
+  .topbar a:hover{color:var(--accent);}
+
+  /* ===== header ===== */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(10,18,32,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;}
+  .logo span{color:var(--accent);}
+  .navlinks{display:flex;gap:34px;align-items:center;font-size:14.5px;}
+  .navlinks a{color:var(--text-muted);transition:color .15s;}
+  .navlinks a:hover{color:var(--text);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 20px;border-radius:6px;
+    font-size:14.5px;font-weight:500;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .15s, background .15s, border-color .15s;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--accent-2);color:var(--accent-2-ink);}
+  .btn-primary:hover{background:#ffb84f;}
+  .btn-outline{border-color:var(--line);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+  .navcta{display:flex;gap:12px;}
+  .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:26px;cursor:pointer;}
+
+  /* ===== hero ===== */
+  .hero{padding:88px 0 100px;}
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
+  .hero h1{font-size:clamp(34px,4.6vw,54px);}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p.lead{font-size:17px;margin-top:22px;max-width:480px;color:var(--text-muted);}
+  .hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:36px;margin-top:52px;padding-top:32px;border-top:1px solid var(--line-soft);}
+  .stat-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;color:var(--text);}
+  .stat-label{font-size:12.5px;color:var(--text-muted);margin-top:2px;}
+
+  /* manifest card */
+  .manifest{
+    background:var(--paper);
+    color:var(--paper-ink);
+    border-radius:14px;
+    padding:30px 28px 26px;
+    position:relative;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+  .manifest-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px dashed rgba(16,26,42,0.35);padding-bottom:16px;margin-bottom:16px;}
+  .manifest-head .mono{font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.65;}
+  .manifest-head .title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;margin-top:4px;}
+  .manifest-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:11px 0;border-bottom:1px solid rgba(16,26,42,0.12);
+    font-size:14px;
+  }
+  .manifest-row:last-of-type{border-bottom:none;}
+  .manifest-row .code{font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:rgba(16,26,42,0.08);padding:3px 7px;border-radius:4px;margin-right:10px;}
+  .manifest-row .item{display:flex;align-items:center;}
+  .manifest-foot{margin-top:18px;padding-top:14px;border-top:1.5px dashed rgba(16,26,42,0.35);display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.04em;opacity:0.7;}
+
+  /* ===== partners strip ===== */
+  .partners{padding:44px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);background:var(--bg-panel);}
+  .partners .wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:space-between;}
+  .partners-label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);white-space:nowrap;}
+  .plate-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .plate{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;
+    color:var(--text);border:1px solid var(--line);border-radius:6px;
+    padding:9px 18px;letter-spacing:0.02em;
+  }
+
+  /* ===== routing diagram ===== */
+  .routing{background:var(--bg);}
+  .routing-head{max-width:600px;margin-bottom:56px;}
+  .routing-head h2{font-size:clamp(26px,3.2vw,36px);}
+  .routing-head p{margin-top:14px;font-size:15.5px;}
+  .diagram-wrap{width:100%;overflow-x:auto;}
+  .diagram-wrap svg{width:100%;height:auto;min-width:640px;}
+  .flow-line{stroke-dasharray:6 6;animation:flow 1.6s linear infinite;}
+  @keyframes flow{to{stroke-dashoffset:-24;}}
+  @media (prefers-reduced-motion: reduce){.flow-line{animation:none;}}
+
+  /* ===== services ===== */
+  .services{background:var(--bg-panel);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+  .services-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap;}
+  .services-head h2{font-size:clamp(26px,3.2vw,36px);max-width:520px;}
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;}
+  .service-card{background:var(--bg-panel);padding:32px 28px;transition:background .15s;}
+  .service-card:hover{background:var(--bg-panel-2);}
+  .service-card .code{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:0.08em;}
+  .service-card h3{font-size:18.5px;margin-top:14px;}
+  .service-card p{margin-top:10px;font-size:14.5px;}
+
+  /* ===== about ===== */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .about-copy .eyebrow{margin-bottom:22px;}
+  .about-copy h2{font-size:clamp(26px,3.2vw,34px);}
+  .about-copy p{margin-top:20px;font-size:16px;}
+  .diferencial{
+    margin-top:30px;display:flex;gap:16px;align-items:flex-start;
+    background:var(--bg-panel);border:1px solid var(--line-soft);border-radius:10px;padding:20px 22px;
+  }
+  .diferencial .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;color:var(--accent-2);}
+  .diferencial-text{font-size:14px;color:var(--text-muted);}
+  .diferencial-text strong{color:var(--text);display:block;font-family:'Space Grotesk',sans-serif;font-size:15px;margin-bottom:3px;}
+
+  .pillars{display:flex;flex-direction:column;gap:14px;}
+  .pillar-card{background:var(--paper);color:var(--paper-ink);border-radius:10px;padding:22px 24px;}
+  .pillar-card .mono{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6;}
+  .pillar-card h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin-top:6px;color:var(--paper-ink);}
+  .pillar-card p{margin-top:8px;font-size:14px;color:rgba(16,26,42,0.72);}
+
+  /* ===== cta ===== */
+  .cta{background:var(--bg-panel);border-top:1px solid var(--line-soft);}
+  .cta-inner{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:48px;
+    background:var(--bg-panel-2);border:1px solid var(--line-soft);border-radius:16px;
+    padding:56px;align-items:center;
+  }
+  .cta-inner h2{font-size:clamp(26px,3.4vw,38px);}
+  .cta-inner p{margin-top:16px;font-size:15.5px;max-width:440px;}
+  .cta-actions{display:flex;flex-direction:column;gap:12px;}
+  .contact-line{display:flex;align-items:center;gap:12px;font-size:14.5px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;transition:border-color .15s;}
+  .contact-line:hover{border-color:var(--accent);}
+  .contact-line .k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;min-width:64px;}
+
+  /* ===== footer ===== */
+  footer{padding:64px 0 32px;border-top:1px solid var(--line-soft);}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;}
+  .footer-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;}
+  .footer-logo span{color:var(--accent);}
+  .footer-desc{margin-top:14px;font-size:13.5px;max-width:260px;}
+  .footer-col h4{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin:0 0 16px;font-weight:400;}
+  .footer-col a{display:block;font-size:14px;color:var(--text-muted);margin-bottom:11px;transition:color .15s;}
+  .footer-col a:hover{color:var(--text);}
+  .social-row{display:flex;gap:10px;margin-top:6px;}
+  .social-row a{width:34px;height:34px;border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+  .social-row a:hover{border-color:var(--accent);color:var(--accent);}
+  .footer-bottom{margin-top:56px;padding-top:24px;border-top:1px solid var(--line-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--text-muted);}
+  .footer-bottom a:hover{color:var(--text);}
+  .to-top{color:var(--text-muted);}
+  .to-top:hover{color:var(--accent);}
+
+  @media (max-width:900px){
+    .hero-grid,.about-grid,.cta-inner{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .navlinks,.navcta .btn-outline{display:none;}
+    .menu-toggle{display:block;}
+    .cta-inner{padding:36px 26px;}
+  }
+  @media (max-width:560px){
+    section{padding:64px 0;}
+    .services-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .hero-stats{gap:24px;flex-wrap:wrap;}
+    .topbar .wrap{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="mailto:atendimento@sourcingtech.com.br">atendimento@sourcingtech.com.br</a>
+    <a href="https://api.whatsapp.com/send?phone=5511934841809&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20produtos." target="_blank" rel="noopener">(11) 93484-1809</a>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#topo" class="logo">SOURCING<span>TECH</span></a>
+    <nav class="navlinks">
+      <a href="#solucoes">Soluções</a>
+      <a href="#como-atuamos">Como atuamos</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="navcta">
+      <a href="#contato" class="btn btn-outline">Falar com a equipe</a>
+      <a href="https://api.whatsapp.com/send?phone=5511934841809&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20produtos." target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
+    </div>
+    <button class="menu-toggle" aria-label="Abrir menu" id="menuToggle">☰</button>
+  </div>
+</header>
+
+<main id="topo">
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Sourcing de tecnologia B2B</div>
+        <h1>Conectamos sua empresa aos <em>melhores fabricantes</em> de TI do mercado.</h1>
+        <p class="lead">Hardware, software e infraestrutura de ponta, negociados por quem entende que, por trás de cada compra corporativa, existe uma relação entre pessoas — não só entre empresas.</p>
+        <div class="hero-cta">
+          <a href="https://api.whatsapp.com/send?phone=5511934841809&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20produtos." target="_blank" rel="noopener" class="btn btn-primary">Solicitar cotação</a>
+          <a href="#solucoes" class="btn btn-outline">Ver soluções</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">15+</div>
+            <div class="stat-label">anos de mercado de TI</div>
+          </div>
+          <div>
+            <div class="stat-num">6</div>
+            <div class="stat-label">frentes de solução</div>
+          </div>
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">atendimento consultivo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="manifest">
+        <div class="manifest-head">
+          <div>
+            <div class="mono">Manifesto de soluções</div>
+            <div class="title">Nº ST-2026</div>
+          </div>
+          <div class="mono" style="text-align:right;">Origem<br>Fabricantes parceiros</div>
+        </div>
+        <div class="manifest-row"><span class="item"><span class="code">HW</span>Hardware</span></div>
+        <div class="manifest-row"><span class="item"><span class="code">SW</span>Software</span></div>
+        <div class="manifest-row"><span class="item"><span class="code">AT</span>Automação / PDV</span></div>
+        <div class="manifest-row"><span class="item"><span class="code">IR</span>Infraestrutura &amp; redes</span></div>
+        <div class="manifest-row"><span class="item"><span class="code">CL</span>Colaboração</span></div>
+        <div class="manifest-row"><span class="item"><span class="code">SG</span>Segurança</span></div>
+        <div class="manifest-foot">
+          <span>Destino: sua empresa</span>
+          <span>Status: disponível</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="partners">
+    <div class="wrap">
+      <div class="partners-label">Marcas que distribuímos</div>
+      <div class="plate-row">
+        <span class="plate">Dell</span>
+        <span class="plate">Lenovo</span>
+        <span class="plate">HP</span>
+        <span class="plate">Adobe</span>
+        <span class="plate">Google for Education</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="routing" id="como-atuamos">
+    <div class="wrap">
+      <div class="routing-head">
+        <div class="eyebrow">Como atuamos</div>
+        <h2>Do fabricante até a sua operação, sem ruído no meio do caminho.</h2>
+        <p>Trabalhamos com os principais distribuidores do setor para ter disponibilidade de diversas marcas, mantendo qualidade e a negociação certa para o seu contexto — e traduzimos tudo isso em uma solução por área de necessidade.</p>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1120 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama mostrando fabricantes parceiros conectados à SourcingTech, que distribui para seis áreas de solução">
+          <g font-family="IBM Plex Mono, monospace" font-size="12" fill="#8DA0B8">
+            <text x="40" y="26">Fabricantes</text>
+            <text x="900" y="26">Áreas de solução</text>
+          </g>
+          <g font-family="Space Grotesk, sans-serif" font-size="13.5" font-weight="600">
+            <g>
+              <rect x="30" y="46" width="150" height="34" rx="6" fill="#101B2C" stroke="#22314A"/>
+              <text x="105" y="67" text-anchor="middle" fill="#EEF2F7">Dell</text>
+            </g>
+            <g>
+              <rect x="30" y="92" width="150" height="34" rx="6" fill="#101B2C" stroke="#22314A"/>
+              <text x="105" y="113" text-anchor="middle" fill="#EEF2F7">Lenovo</text>
+            </g>
+            <g>
+              <rect x="30" y="138" width="150" height="34" rx="6" fill="#101B2C" stroke="#22314A"/>
+              <text x="105" y="159" text-anchor="middle" fill="#EEF2F7">HP</text>
+            </g>
+            <g>
+              <rect x="30" y="184" width="150" height="34" rx="6" fill="#101B2C" stroke="#22314A"/>
+              <text x="105" y="205" text-anchor="middle" fill="#EEF2F7">Adobe</text>
+            </g>
+            <g>
+              <rect x="30" y="230" width="150" height="34" rx="6" fill="#101B2C" stroke="#22314A"/>
+              <text x="105" y="251" text-anchor="middle" fill="#EEF2F7">Google for Education</text>
+            </g>
+          </g>
+
+          <g stroke="#5B6EF5" stroke-width="1.5" fill="none" opacity="0.55">
+            <path class="flow-line" d="M180,63 C330,63 330,150 460,150"/>
+            <path class="flow-line" d="M180,109 C330,109 330,150 460,150"/>
+            <path class="flow-line" d="M180,155 C330,155 330,150 460,150"/>
+            <path class="flow-line" d="M180,201 C330,201 330,150 460,150"/>
+            <path class="flow-line" d="M180,247 C330,247 330,150 460,150"/>
+          </g>
+
+          <g>
+            <rect x="460" y="112" width="150" height="76" rx="8" fill="#5B6EF5"/>
+            <text x="535" y="146" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14" fill="#EEF0FF">SOURCING</text>
+            <text x="535" y="166" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="14" fill="#EEF0FF">TECH</text>
+          </g>
+
+          <g stroke="#F2A93B" stroke-width="1.5" fill="none" opacity="0.6">
+            <path class="flow-line" d="M610,150 C740,150 740,40 900,40"/>
+            <path class="flow-line" d="M610,150 C740,150 740,92 900,92"/>
+            <path class="flow-line" d="M610,150 C740,150 740,150 900,150"/>
+            <path class="flow-line" d="M610,150 C740,150 740,208 900,208"/>
+            <path class="flow-line" d="M610,150 C740,150 740,260 900,260"/>
+            <path class="flow-line" d="M610,150 C740,150 740,150 900,150"/>
+          </g>
+
+          <g font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600">
+            <g><rect x="900" y="24" width="180" height="32" rx="6" fill="#16233A" stroke="#22314A"/><text x="990" y="45" text-anchor="middle" fill="#EEF2F7">Hardware</text></g>
+            <g><rect x="900" y="76" width="180" height="32" rx="6" fill="#16233A" stroke="#22314A"/><text x="990" y="97" text-anchor="middle" fill="#EEF2F7">Software</text></g>
+            <g><rect x="900" y="134" width="180" height="32" rx="6" fill="#16233A" stroke="#22314A"/><text x="990" y="155" text-anchor="middle" fill="#EEF2F7">Automação / PDV</text></g>
+            <g><rect x="900" y="192" width="180" height="32" rx="6" fill="#16233A" stroke="#22314A"/><text x="990" y="213" text-anchor="middle" fill="#EEF2F7">Infra &amp; redes</text></g>
+            <g><rect x="900" y="244" width="180" height="32" rx="6" fill="#16233A" stroke="#22314A"/><text x="990" y="265" text-anchor="middle" fill="#EEF2F7">Colaboração / Segurança</text></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="solucoes">
+    <div class="wrap">
+      <div class="services-head">
+        <h2>Tudo o que sua empresa precisa em um só lugar.</h2>
+        <a href="#contato" class="btn btn-outline">Entrar em contato</a>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="code">01 — HW</div>
+          <h3>Hardware</h3>
+          <p>Equipamentos de última geração para mais desempenho e produtividade no dia a dia da operação.</p>
+        </div>
+        <div class="service-card">
+          <div class="code">02 — SW</div>
+          <h3>Software</h3>
+          <p>Linha completa de licenciamento e ferramentas para melhorar a produtividade com soluções inovadoras.</p>
+        </div>
+        <div class="service-card">
+          <div class="code">03 — AT</div>
+          <h3>Automação</h3>
+          <p>Agilize processos e amplie resultados com equipamentos e serviços para a demanda de PDV da sua empresa.</p>
+        </div>
+        <div class="service-card">
+          <div class="code">04 — IR</div>
+          <h3>Infraestrutura e redes</h3>
+          <p>Agilidade para as infraestruturas e redes locais acompanharem as mudanças constantes do ambiente digital.</p>
+        </div>
+        <div class="service-card">
+          <div class="code">05 — CL</div>
+          <h3>Colaboração</h3>
+          <p>Produtos que aumentam a produtividade e a sinergia entre as equipes, onde quer que elas estejam.</p>
+        </div>
+        <div class="service-card">
+          <div class="code">06 — SG</div>
+          <h3>Segurança</h3>
+          <p>Mais visibilidade, controle e prevenção contra ameaças aos sistemas e informações do seu negócio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <div class="eyebrow">Quem somos</div>
+        <h2>Tecnologia corporativa com relação humana.</h2>
+        <p>A SourcingTech nasceu da necessidade do mercado B2B de ter uma relação mais humana, mesmo em um contexto totalmente corporativo. As buscas por melhores negociações e agilidade em entregas e pós-venda abriram espaço para um atendimento empresarial mais consultivo e efetivo — alinhando redução de custos sem abrir mão da qualidade.</p>
+        <div class="diferencial">
+          <div class="num">15+</div>
+          <div class="diferencial-text">
+            <strong>Diferencial</strong>
+            Profissionais com mais de 15 anos de mercado de TI, sempre buscando a estratégia certa para o seu negócio crescer de forma sólida, econômica e constante.
+          </div>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar-card">
+          <div class="mono">Missão</div>
+          <h3>Atendimento consultivo</h3>
+          <p>Atender de forma consultiva nossos clientes, simplificando suas demandas e agilizando suas necessidades.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="mono">Visão</div>
+          <h3>Relações, não só contratos</h3>
+          <p>Tratar vendas corporativas com uma condução humanizada — as necessidades de uma empresa se decidem através de pessoas com objetivos em comum.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="mono">Valores</div>
+          <h3>Negócio justo para os dois lados</h3>
+          <p>Um bom negócio precisa trazer satisfação, segurança e rentabilidade tanto para o cliente quanto para a SourcingTech.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contato">
+    <div class="wrap">
+      <div class="cta-inner">
+        <div>
+          <div class="eyebrow">Fale com a gente</div>
+          <h2>Vamos simplificar a próxima compra de TI da sua empresa?</h2>
+          <p>Conte o que sua operação precisa e retornamos com uma proposta consultiva — sem enrolação e sem letras miúdas.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="contact-line" href="https://api.whatsapp.com/send?phone=5511934841809&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20produtos." target="_blank" rel="noopener">
+            <span class="k mono">Whats</span> (11) 93484-1809
+          </a>
+          <a class="contact-line" href="tel:+55112600-7415">
+            <span class="k mono">Fixo</span> (11) 2600-7415
+          </a>
+          <a class="contact-line" href="mailto:atendimento@sourcingtech.com.br">
+            <span class="k mono">E-mail</span> atendimento@sourcingtech.com.br
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">SOURCING<span>TECH</span></div>
+        <p class="footer-desc">Soluções em tecnologia para empresas: hardware, software e infraestrutura de TI, com atendimento consultivo e humano.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/sourcingtech_/" target="_blank" rel="noopener" aria-label="Instagram da SourcingTech">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/sourcingtech-solu%C3%A7%C3%B5es-em-tecnologia/" target="_blank" rel="noopener" aria-label="LinkedIn da SourcingTech">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="7" r="0.6" fill="currentColor" stroke="none"/><path d="M11.5 17v-4.2c0-1.5 1-2.3 2.2-2.3s2 .8 2 2.3V17"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Institucional</h4>
+        <a href="#topo">Home</a>
+        <a href="#sobre">Quem somos</a>
+        <a href="#solucoes">Soluções</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <a href="mailto:atendimento@sourcingtech.com.br">atendimento@sourcingtech.com.br</a>
+        <a href="https://api.whatsapp.com/send?phone=5511934841809">(11) 93484-1809</a>
+        <a href="tel:+55112600-7415">(11) 2600-7415</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://sourcingtech.com.br/politica-de-privacidade/">Política de privacidade</a>
+        <a href="https://sourcingtech.com.br/politica-de-cookies/">Política de cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Copyright © 2026 — SourcingTech</span>
+      <a href="#topo" class="to-top">Voltar ao topo ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuToggle').addEventListener('click', function(){
+    var links = document.querySelector('.navlinks');
+    var open = links.style.display === 'flex';
+    links.style.display = open ? 'none' : 'flex';
+    links.style.flexDirection = 'column';
+    links.style.position = 'fixed';
+    links.style.top = '58px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = '#101B2C';
+    links.style.padding = '24px 28px';
+    links.style.borderBottom = '1px solid #22314A';
+    links.style.gap = '18px';
+  });
+</script>
+
+</body>
+</html>
